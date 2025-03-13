@@ -6,6 +6,6 @@ import authMiddleware from "../middlewares/auth.middleware.js";
 
 router.route('/').get(authMiddleware , handlleallurl).delete(authMiddleware,handleDeleteUrl)
 router.route('/add').post(authMiddleware,handleAddUrl)
-router.route('/:redirect').get(handleRedirectUrl)
+router.route('/:_id').delete(authMiddleware,handleDeleteUrl)
 
 export default router

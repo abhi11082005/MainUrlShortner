@@ -27,15 +27,18 @@ const UserSpecifiedHomepage = () => {
     e.preventDefault();
     navigate("/url/add");
   };
-  const deleteHandler = async(data) => {
-    const response = await axios.delete("http://localhost:5000/url",{
-      data
-    },{withCredentials:true})
+  const deleteHandler = async(_id) => {
+    console.log(_id)
+    const response = await axios.delete(`http://localhost:5000/url/${_id}`,{withCredentials:true})
+    
     .catch((error)=>{
       console.error(error)
     })
     if(response.status===200){
-      navigate("/url")
+      setResponse((prev)=>({
+        ...prev,
+        urls: prev.urls.filter((url) => url._id !== _id),
+      }))
     }
   }
 console.log(response)

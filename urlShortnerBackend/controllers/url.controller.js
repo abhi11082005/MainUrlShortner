@@ -50,14 +50,32 @@ async function handleRedirectUrl(req,res){
         res.json({message:"error found in handleRedirectUrl"})
     }
 }
-async function handleDeleteUrl(req,res){
-    const url= req.body
-    console.log(url)
-    if(!url) console.error("data not found in deleteUrl")
-    const deleteurl= await URL.deleteOne({_id:url})
-    if(!deleteurl) console.error("url not deleted in deleteUrl")
-    res.status(200)
+
+
+async function handleDeleteUrl(req, res) {
+    try {
+        const { _id } = req.params; // Extract `_id` from URL params
+        console.log("Deleting URL with ID:", _id);
+
+        if (!_id) {
+            return res.status(400).json({ message: "URL ID is required" });
+        }
+
+        const deleteResult = await URL.deleteOne({ _id: _id });
+
+        if (deleteResult.deletedCount === 0) {
+            return res.status(404).json({ message: "URL not found or already deleted" });
+        }
+
+        res.status(200).json({ message: "URL deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting URL:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
 }
+
+
+
 
 export {
     handleAddUrl,
