@@ -25,28 +25,22 @@ async function handleUserLogin(req,res) {
     res.status(200).render("userLogin")
 }
 
-async function handleUserLoginAuth(req,res) {
-    try{
-        const {email,password}=req.body
-        const mainData=await User.findOne({email,password})
-        if(!mainData) return res.status(404).json({ message: "User not found", redirect: "/login" });
-        const sessionId=uuidv4();
-        const mappedValue=setUser(sessionId,mainData)
-        const options={
-            httpOnly:true,
-            sameSite: 'none',
-            secure:true,
-            path: '/'
+const handleUserLoginAuth = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const mainData = await User.findOne({ email, password });
+
+        if (!mainData) {
+            return res.status(404).json({ message: "User not found" });
         }
-        return res
-        .status(200)
-        .cookie('userLogin',sessionId,options)
-        .json({data:'logged in successfully'})
-        // .redirect("/url")
+
+        const sessionId = uuidv4(); // Generate session ID
+        const mappedValue=setUser(sessionId,mainData)
+        return res.status(200).json({ message: "Logged in successfully", sessionId });
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-    catch{
-        res.json({message:"error found"})
-    }
-}
+};
 
 export {handleUserRegister,handleUserRegisterData, handleUserLogin , handleUserLoginAuth}

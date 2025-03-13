@@ -3,6 +3,7 @@ import { getUser } from "../service/auth.js";
 async function authMiddleware(req, res, next) {
     try {
         const userId = req.cookies?.userLogin;
+        console.log(userId)
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized: No user ID found", redirect: "/login" });
         }

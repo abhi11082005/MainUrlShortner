@@ -7,14 +7,15 @@ const URLShortener = () => {
   const [url,setUrl] = useState('')
   const submitHandler = async(e)=>{
     e.preventDefault()
-    const response=await axios.get("http://localhost:5000/url/add",{url:url})
+    console.log("hajdfjsldfjsdlk", url)
+    const response=await axios.post("http://localhost:5000/url/add",{url}, {withCredentials:true} )
     .catch((error)=>{console.log(error)})
     
     if(response?.status===200 ){
       navigate("/url")
     }
     else{
-      alert("not navigate")
+      navigate("/login")
     }
 
 
@@ -39,7 +40,7 @@ const URLShortener = () => {
           value={url}
           onChange={(e)=>{setUrl(e.target.value)}}
           required
-          className="w-full p-2 mb-6 border border-blue-400 rounded text-gray-900 focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400"
+          className="w-full p-2 mb-6 border border-blue-400 rounded text-white-900 focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400"
         />
 
         <button

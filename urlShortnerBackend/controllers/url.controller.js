@@ -4,8 +4,10 @@ import { nanoid } from "nanoid"
 
 async function handlleallurl(req,res) {
     try{
-        console.log(req.user)
+        // console.log("hetttt", req.user)
         const urlData=await URL.find({createdBy:req.user._id})
+        
+        console.log(urlData)
         res.status(200)
         .json({urls:urlData})
     }
@@ -48,11 +50,20 @@ async function handleRedirectUrl(req,res){
         res.json({message:"error found in handleRedirectUrl"})
     }
 }
+async function handleDeleteUrl(req,res){
+    const url= req.body
+    console.log(url)
+    if(!url) console.error("data not found in deleteUrl")
+    const deleteurl= await URL.deleteOne({_id:url})
+    if(!deleteurl) console.error("url not deleted in deleteUrl")
+    res.status(200)
+}
 
 export {
     handleAddUrl,
     handlleallurl,
     handleRedirectUrl,
     handleAddGeturl,
+    handleDeleteUrl
 
 }
