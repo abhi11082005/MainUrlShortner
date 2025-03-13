@@ -42,8 +42,8 @@ app.get('/',async(req,res)=>{
 app.use("/user",userRouter)
 app.use("/url",urlrouter)
 
-// app.listen(5000,()=>{
-//     console.log("successfully connected")
-// })
-export default app;
-export const handler = serverless(app);
+app.listen(process.env.PORT||8000,()=>{
+    console.log("successfully connected")
+})
+// export default app;
+// export const handler = serverless(app);
