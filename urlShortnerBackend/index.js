@@ -1,4 +1,6 @@
 import express, { urlencoded }  from "express"
+// const serverless = require("serverless-http"); 
+import serverless from "serverless-http"
 const app=express()
 import cors from "cors"
 app.use(cors({
@@ -40,6 +42,8 @@ app.get('/',async(req,res)=>{
 app.use("/user",userRouter)
 app.use("/url",urlrouter)
 
-app.listen(5000,()=>{
-    console.log("successfully connected")
-})
+// app.listen(5000,()=>{
+//     console.log("successfully connected")
+// })
+export default app;
+export const handler = serverless(app);

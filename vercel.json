@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "urlShortnerBackend/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "urlShortnerFrontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "urlShortnerFrontend/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "urlShortnerBackend/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "urlShortnerFrontend/dist/$1"
+    }
+  ]
+}
