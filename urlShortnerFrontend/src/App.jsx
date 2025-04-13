@@ -8,6 +8,7 @@ import LoginPage from './components/Login'
 import RegisterPage from './components/Register'
 import URLShortener from './components/AddurlShortner'
 import UserSpecifiedHomepage from './components/UserSpecifiedHomepage'
+import ModalLogin from './components/ModelLogin';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +22,7 @@ function App() {
           <Route path='/login' element={<LoginPage/>}/>
           <Route path='/url' element={<UserSpecifiedHomepage/>}/>
           <Route path='/url/add' element={<URLShortener/>}/>
+          <Route path='/modellogin' element={<ModalLogin/>}/>
            
         </Routes>
       </BrowserRouter>

@@ -11,8 +11,10 @@ const UserSpecifiedHomepage = () => {
       try {
         console.log("Fetching URLs...");
         const res = await axios.get("http://localhost:5000/url", {
-          withCredentials: true, // ✅ Send cookies automatically
-        });
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" }  // Ensure correct headers
+      });
+      
         console.log("hattak",res.data)
         setResponse(res.data);
       } catch (error) {
